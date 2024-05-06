@@ -10,7 +10,6 @@ def main():
     set_page_config()
     custom_css()
     hide_elements()
-    sidebar()
     title_and_description()
     input_section()
 
@@ -57,35 +56,9 @@ def hide_elements():
     hide_streamlit_footer = '<style>#MainMenu {visibility: hidden;} footer {visibility: hidden;}</style>'
     st.markdown(hide_streamlit_footer, unsafe_allow_html=True)
 
-def sidebar():
-    st.sidebar.image("img/alwrity.jpeg", use_column_width=True)
-    st.sidebar.markdown("🧕 :red[Checkout Alwrity], complete **AI writer & Blogging solution**:[Alwrity](https://alwrity.netlify.app)")
-
 
 def title_and_description():
-    st.title("✍️ Alwrity - AI Generator for Emotional Triggers Copywriting")
-    with st.expander("What is **Emotional Triggers Copywriting** & **How to Use**? 📝❗"):
-        st.markdown('''
-            ### What's Emotional Triggers Copywriting, and How to use this AI generator 🗣️
-            ---
-            #### Emotional Triggers Copywriting
-
-            Emotional Triggers Copywriting focuses on tapping into the emotions of the audience to evoke specific feelings or reactions. It involves:
-
-            1. **Identifying Emotions**: Understanding the emotional triggers that resonate with the target audience.
-            2. **Creating Emotional Connections**: Crafting copy that connects with the audience on an emotional level.
-            3. **Eliciting Desired Emotions**: Using words, phrases, and storytelling techniques to evoke the desired emotional response.
-
-            Emotional Triggers Copywriting is effective in creating impactful and memorable content that resonates with the audience's emotions.
-
-            #### Emotional Triggers Copywriting: Simple Example
-
-            - **Fear**: "Don't miss out on this limited-time offer before it's too late!"
-            - **Joy**: "Experience the pure joy of achieving your fitness goals with our revolutionary workout program."
-            - **Trust**: "Join thousands of satisfied customers who have trusted us to deliver quality products and services."
-
-            ---
-        ''')
+    st.title("🧕 Alwrity - AI Generator for Emotional Triggers Copywriting")
 
 
 def input_section():
@@ -105,14 +78,13 @@ def input_section():
                 with st.spinner("Generating Emotional Triggers Copy..."):
                     emotional_copy = generate_emotional_copy(brand_name, description, trust)
                     if emotional_copy:
-                        st.subheader('**👩🔬👩🔬 Your Emotional Triggers Copy**')
+                        st.subheader('**👩🧕 Your Emotional Triggers Copy**')
                         st.markdown(emotional_copy)
                     else:
                         st.error("💥 **Failed to generate Emotional Triggers copy. Please try again!**")
             else:
                 st.error("All fields are required!")
 
-    page_bottom()
 
 
 @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
@@ -124,32 +96,6 @@ def generate_emotional_copy(brand_name, description, trust):
         Build trust and credibility by showcasing, Trust: {trust}
     """
     return openai_chatgpt(prompt)
-
-
-def page_bottom():
-    """ """
-    data_oracle = import_json(r"lottie_files/brain_robot.json")
-    st_lottie(data_oracle, width=600, key="oracle")
-
-    st.markdown('''
-    Copywrite using Emotional Triggers Copywriting - powered by AI (OpenAI, Gemini Pro).
-
-    Implemented by [Alwrity](https://alwrity.netlify.app).
-
-    Learn more about [Google's Stance on AI generated content](https://alwrity.netlify.app/post/googles-guidelines-on-using-ai-generated-content-everything-you-need-to-know).
-    ''')
-
-    st.markdown("""
-    ### Fear:
-    Don't miss out on this limited-time offer before it's too late!
-
-    ### Joy:
-    Experience the pure joy of achieving your fitness goals with our revolutionary workout program.
-
-    ### Trust:
-    Join thousands of satisfied customers who have trusted us to deliver quality products and services.
-    """)
-
 
 
 @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
